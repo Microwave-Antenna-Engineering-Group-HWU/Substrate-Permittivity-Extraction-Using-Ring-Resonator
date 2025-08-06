@@ -53,7 +53,6 @@ python substrate_permittivity_extraction.py
 
 - Table of resonance modes and extracted permittivities
 - Extracted loss tangent (tanδ) for each resonance (printed and included in CSV)
-- Optional CSV file with numerical results
 - Plots (auto-saved):
 
 <p align="center">
