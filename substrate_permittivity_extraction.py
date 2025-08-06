@@ -1,8 +1,7 @@
-
 #!/usr/bin/env python3
 """
-Ring‑Resonator Dielectric Extraction
-====================================
+Substrate Permittivity Extraction Using Ring Resonator
+=====================================================
 Calculates effective permittivity (ε_e) and substrate permittivity (ε_r)
 from a microstrip ring‑resonator S‑parameter file and visualises the results.
 
@@ -12,7 +11,7 @@ How to run
      pip install -r requirements.txt
 2. Edit the CONFIG block below.
 3. Execute:
-     python ring_resonator_dielectric.py
+     python substrate_permittivity_extraction.py
 """
 
 # ── CONFIG ────────────────────────────────────────────────────────────
@@ -24,8 +23,13 @@ TRACE_W_MM      = 3         # Microstrip trace width W (mm)
 MIN_PEAK_DB     = 16.0         # Peak detection threshold above median (dB)
 SAVE_CSV        = "results.csv"   # Set to None to skip CSV export
 SHOW_PLOT       = True            # Set False to suppress figure
-# ──────────────────────────────────────────────────────────────────────
 
+# --- Calibration (set CALIBRATE_L = True to use this feature) ---
+CALIBRATE_L = False  # Set to True to override L with a value estimated from a known resonance
+CALIBRATION_FREQ_HZ = 1.0e9  # Known resonance frequency (Hz)
+CALIBRATION_EPSILON = 4.2    # Known permittivity (ε_r or ε_eff)
+CALIBRATION_MODE_N = 1       # Mode number for the known resonance
+# ──────────────────────────────────────────────────────────────────────
 
 # --- Imports ---
 import numpy as np
@@ -34,10 +38,8 @@ import matplotlib.pyplot as plt
 from scipy.signal import find_peaks
 from skrf import Network
 
-
 # Speed of light in vacuum (m/s)
 C0 = 299_792_458.0
-
 
 def microstrip_eps_r(eps_eff, h, w):
     """
@@ -46,7 +48,6 @@ def microstrip_eps_r(eps_eff, h, w):
     """
     a = 1.0 / np.sqrt(1.0 + 12.0 * h / w)
     return (2.0 * eps_eff + a - 1.0) / (1.0 + a)
-
 
 def find_s21_peaks(mag_db, min_peak_db):
     """
@@ -58,7 +59,6 @@ def find_s21_peaks(mag_db, min_peak_db):
     print(f"Peak detection threshold: {threshold:.2f} dB")
     peaks, _ = find_peaks(mag_db, height=threshold)
     return peaks
-
 
 def calculate_loss_tangent(freq, mag_db, peaks):
     """
@@ -88,6 +88,11 @@ def calculate_loss_tangent(freq, mag_db, peaks):
         loss_tangents.append(loss_tangent)
     return loss_tangents
 
+def estimate_effective_length(eps_known, freq_Hz, mode_n):
+    """
+    Back-calculate effective resonator length L_eff from known ε_r or ε_e and a known resonance.
+    """
+    return (C0 * mode_n) / (freq_Hz * np.sqrt(eps_known))
 
 def main():
     # Load S-parameter data from Touchstone file
@@ -104,10 +109,13 @@ def main():
         raise RuntimeError("No peaks detected; adjust MIN_PEAK_DB or check data.")
 
     # Convert ring and substrate dimensions to meters
-    L = RING_LENGTH_MM / 1e3
+    if CALIBRATE_L:
+        L = estimate_effective_length(CALIBRATION_EPSILON, CALIBRATION_FREQ_HZ, CALIBRATION_MODE_N)
+        print(f"[Calibration] Using estimated L = {L*1e3:.2f} mm (from ε = {CALIBRATION_EPSILON}, f = {CALIBRATION_FREQ_HZ/1e9:.3f} GHz, n = {CALIBRATION_MODE_N})")
+    else:
+        L = RING_LENGTH_MM / 1e3
     h = SUBSTRATE_H_MM / 1e3
     w = TRACE_W_MM / 1e3
-
 
     # Calculate effective and substrate permittivity
     eps_eff = (C0 * n_modes / (freqs * L)) ** 2
@@ -147,6 +155,7 @@ def main():
         plt.grid(True, ls=":")
         plt.legend()
         plt.tight_layout()
+        plt.savefig("ring_resonator_S21.png", dpi=300)
         plt.show()
 
         # Permittivity plot
@@ -164,6 +173,7 @@ def main():
         ax_eps.set_ylabel("Permittivity")
         ax_eps.grid(True, ls=":")
         ax_eps.legend()
+        fig.savefig("ring_resonator_permittivity.png", dpi=300)
         plt.show()
 
 if __name__ == "__main__":

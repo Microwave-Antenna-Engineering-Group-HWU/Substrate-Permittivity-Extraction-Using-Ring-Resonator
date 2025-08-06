@@ -1,0 +1,26 @@
+%TF.GenerationSoftware,KiCad,Pcbnew,(6.0.4)*%
+%TF.CreationDate,2025-06-12T14:40:54+01:00*%
+%TF.ProjectId,Ring_Resonator_with_solder_mask,52696e67-5f52-4657-936f-6e61746f725f,rev?*%
+%TF.SameCoordinates,Original*%
+%TF.FileFunction,Profile,NP*%
+%FSLAX46Y46*%
+G04 Gerber Fmt 4.6, Leading zero omitted, Abs format (unit mm)*
+G04 Created by KiCad (PCBNEW (6.0.4)) date 2025-06-12 14:40:54*
+%MOMM*%
+%LPD*%
+G01*
+G04 APERTURE LIST*
+%TA.AperFunction,Profile*%
+%ADD10C,0.200000*%
+%TD*%
+G04 APERTURE END LIST*
+D10*
+X-48100000Y24500000D02*
+X48100000Y24500000D01*
+X48100000Y24500000D02*
+X48100000Y-24500000D01*
+X48100000Y-24500000D02*
+X-48100000Y-24500000D01*
+X-48100000Y-24500000D02*
+X-48100000Y24500000D01*
+M02*

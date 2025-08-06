@@ -1,0 +1,5 @@
+(sym_lib_table
+  (lib (name "NFC_ANTENNA")(type "KiCad")(uri "${KIPRJMOD}/NFC_ANTENNA/NFC_ANTENNA.kicad_sym")(options "")(descr ""))
+  (lib (name "20279-001E-03")(type "Legacy")(uri "${KIPRJMOD}/My_Libs/20279-001E-03/20279-001E-03.lib")(options "")(descr ""))
+  (lib (name "CON-SMA-EDGE-S")(type "KiCad")(uri "${KIPRJMOD}/My_Libs/CON-SMA-EDGE-S/CON-SMA-EDGE-S.kicad_sym")(options "")(descr ""))
+)

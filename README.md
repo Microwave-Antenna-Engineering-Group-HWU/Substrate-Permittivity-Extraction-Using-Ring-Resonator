@@ -1,7 +1,19 @@
 
+
 # Substrate Permittivity Extraction Using Ring Resonator
 
+
 This repository provides a Python-based tool and design assets for extracting the substrate dielectric constant (ε<sub>r</sub>) from S-parameter measurements of a microstrip ring resonator.
+
+---
+
+## 📺 Project Origin
+
+This project was inspired by:
+- [YouTube: "PCB Dielectric Constant Extraction with a Ring Resonator" by Gusberti Analog](https://www.youtube.com/watch?v=-Or-rcEIc7o&t=1090s)
+- [Article: "Effective Dielectric Characterization for PCB Materials" by Gusberti Analog](https://gusbertianalog.com/effective-dielectric-characterization-for-pcb-materials/)
+
+---
 
 📡 **Purpose**: Characterize PCB materials (e.g., FR4, Rogers) using VNA measurements and resonator geometry.
 
@@ -11,7 +23,7 @@ This repository provides a Python-based tool and design assets for extracting th
 
 ```
 substrate-permittivity-extraction-ring-resonator/
-├── ring_resonator_dielectric.py     # Python script for permittivity extraction
+├── substrate_permittivity_extraction.py     # Python script for permittivity extraction
 ├── example/
 │   ├── ring.s2p                      # Sample S2P data (VNA export)
 │   ├── design.kicad_pcb              # Ring layout (KiCad, DXF, or Gerber)
@@ -52,7 +64,7 @@ pip install -r requirements.txt
 
 ### 2. Configure and Run the Script
 
-Edit the parameters in the `ring_resonator_dielectric.py` file under the CONFIG section:
+Edit the parameters in the `substrate_permittivity_extraction.py` file under the CONFIG section:
 
 ```python
 S2P_FILE       = "example/ring.s2p"
@@ -64,14 +76,25 @@ TRACE_W_MM     = 1.5
 Run the script:
 
 ```bash
-python ring_resonator_dielectric.py
+python substrate_permittivity_extraction.py
 ```
+
 
 ### 3. Output
 
 - Table of resonance modes and extracted permittivities
 - Optional CSV file with numerical results
-- Optional plots showing |S21| peaks and ε<sub>e</sub>, ε<sub>r</sub> vs frequency
+- Plots (auto-saved to `figures/`):
+
+<p align="center">
+  <img src="figures/ring_resonator_S21.png" alt="S21 Magnitude Plot" width="500"><br>
+  <b>Figure:</b> S21 magnitude with detected resonance peaks
+</p>
+
+<p align="center">
+  <img src="figures/ring_resonator_permittivity.png" alt="Permittivity Plot" width="500"><br>
+  <b>Figure:</b> Extracted effective and substrate permittivity vs frequency
+</p>
 
 ---
 
