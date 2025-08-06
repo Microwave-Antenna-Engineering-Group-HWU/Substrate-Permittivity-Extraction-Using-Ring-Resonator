@@ -3,7 +3,7 @@
 # Substrate Permittivity Extraction Using Ring Resonator
 
 
-This repository provides a Python-based tool and design assets for extracting the substrate dielectric constant (ε<sub>r</sub>) from S-parameter measurements of a microstrip ring resonator.
+This repository provides a Python-based tool and design assets for extracting the substrate dielectric constant (ε<sub>r</sub>)  and  loss tangent (tanδ) from S-parameter measurements of a microstrip ring resonator.
 
 ---
 
@@ -35,7 +35,7 @@ pip install -r requirements.txt
 Edit the parameters in the `substrate_permittivity_extraction.py` file under the CONFIG section:
 
 ```python
-S2P_FILE       = "example/ring.s2p"
+S2P_FILE       = "Measurements/10M_6G_no_soldermask.s2p"
 RING_LENGTH_MM = 100.0
 SUBSTRATE_H_MM = 1.5
 TRACE_W_MM     = 3
@@ -48,11 +48,13 @@ python substrate_permittivity_extraction.py
 ```
 
 
+
 ### 3. Output
 
 - Table of resonance modes and extracted permittivities
+- Extracted loss tangent (tanδ) for each resonance (printed and included in CSV)
 - Optional CSV file with numerical results
-- Plots (auto-saved to `figures/`):
+- Plots (auto-saved):
 
 <p align="center">
   <img src="ring_resonator_S21.png" alt="S21 Magnitude Plot" width="500"><br>
