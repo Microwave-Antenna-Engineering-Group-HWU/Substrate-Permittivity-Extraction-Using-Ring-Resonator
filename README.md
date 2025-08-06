@@ -4,7 +4,7 @@
 # Substrate Permittivity Extraction Using Ring Resonator
 
 <p align="center">
-  <img src="photos/2025-07-10 14.01.06.jpg" alt="Ring Resonator PCB Photo" width="500"><br>
+  <img src="Photos/2025-07-10 14.01.06.jpg" alt="Ring Resonator PCB Photo" width="500"><br>
   <b>Figure:</b> Example of a fabricated microstrip ring resonator PCB used for dielectric extraction
 </p>
 
