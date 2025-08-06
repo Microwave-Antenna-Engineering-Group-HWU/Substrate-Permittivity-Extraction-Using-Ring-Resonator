@@ -1,6 +1,12 @@
 
 
+
 # Substrate Permittivity Extraction Using Ring Resonator
+
+<p align="center">
+  <img src="photos/2025-07-10 14.01.06.jpg" alt="Ring Resonator PCB Photo" width="500"><br>
+  <b>Figure:</b> Example of a fabricated microstrip ring resonator PCB used for dielectric extraction
+</p>
 
 
 This repository provides a Python-based tool and design assets for extracting the substrate dielectric constant (ε<sub>r</sub>)  and  loss tangent (tanδ) from S-parameter measurements of a microstrip ring resonator.
